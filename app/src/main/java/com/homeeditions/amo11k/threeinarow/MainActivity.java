@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean player1 = true;  //true para 1P y false para 2p
     private static final String p1 = "First player turn:";
     private static final String p2 = "Second player turn:";
-    private Collection<Integer> p1Combo = new ArrayList<>();
+    private String[][] p1Combo;
 
 
     @Override
@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        p1Combo = new String[3][3];
+        //init();
         turnView = (TextView) findViewById(R.id.turnView);
         b1 = (Button) findViewById(R.id.b1);
         b2 = (Button) findViewById(R.id.b2);
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b7.setOnClickListener(this);
         b8.setOnClickListener(this);
         b9.setOnClickListener(this);
+
+
 
     }
 
@@ -88,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 b1.setText("X");
                 player1 = false;
                 turnView.setText(p2);
+                p1Combo[0][0] = "p1";
+                checkWin();
             } else {
                 b1.setText("0");
                 player1 = true;
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 b2.setText("X");
                 player1 = false;
                 turnView.setText(p2);
+                p1Combo[0][1] = "p1";
+                checkWin();
             } else {
                 b2.setText("0");
                 player1 = true;
@@ -110,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 b3.setText("X");
                 player1 = false;
                 turnView.setText(p2);
+                p1Combo[0][2] = "p1";
+                checkWin();
             } else {
                 b3.setText("0");
                 player1 = true;
@@ -188,9 +198,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return player1;
     }
 
-    private boolean checkWin() {
+    private void checkWin() {
         boolean win = false;
+        System.out.print(p1Combo[0][0].equals(p1Combo[0][2]));
+        if ((p1Combo[0][0].equals(p1Combo[0][1])) == (p1Combo[0][0].equals(p1Combo[0][2]))) {
+            win();
 
-        return win;
+        }
+
+    }
+
+    private void win() {
+        turnView.setText("Ganador");
+    }
+
+    private void init(){
+        for (int i = 0; i < p1Combo.length; i++) {
+            for (int j = 0; j < p1Combo.length; j++) {
+                p1Combo[i][j] = "";
+            }
+        }
     }
 }
